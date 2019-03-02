@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Project6.Models.Document>
+
+@{
+    ViewBag.Title = "OtherRolesView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>OtherRolesView</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            From
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserRole)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmitDate)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.Raw(item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserRole)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmitDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+
+        </td>
+    </tr>
+}
+
+</table>
