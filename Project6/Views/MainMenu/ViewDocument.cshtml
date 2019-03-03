@@ -1,0 +1,48 @@
+﻿@model Project6.Models.Document
+
+@{
+    ViewBag.Title = "ViewDocument";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <h4>Document</h4>
+    <hr />
+    @if (Model.ProgressStatus == (int)Session["Role"])
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.Content)
+            </dd>
+
+            @if (Model.ProgressStatus == 5)
+            {
+            <hr />
+                @Html.ActionLink("Accept", "AcceptDocument", new { id = Model.Id }) <hr />
+                @Html.ActionLink("Decline", "DeclineDocument", new { id = Model.Id })
+                
+
+            }
+
+        </dl>
+
+    }
+    else
+    {
+        @Html.ValidationMessage("Documents", "Unregistered Action", new { @class = "text-danger" })
+    }
+</div>
+

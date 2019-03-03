@@ -19,7 +19,7 @@ namespace Project6.Models
 
         [Range(2,5)]
         public int ProgressStatus { get; set; }
-        public bool DocumentRegistration { get; set; }
+        public bool? DocumentRegistration { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }

@@ -18,7 +18,7 @@ namespace Project6.Models
             }
         }
 
-        public Document EditDocument(int id)
+        public Document FindDocument(int id)
         {
             using (_context = new DatabaseContext())
             {
@@ -35,6 +35,26 @@ namespace Project6.Models
                 documentToUpdate.SubmitDate = DateTime.Now;
                 documentToUpdate.ProgressStatus = documentToUpdate.ProgressStatus +1;
                 documentToUpdate.UserId = document.UserId;
+                _context.SaveChanges();
+            }
+        }
+
+        public void AcceptDocument(int id)
+        {
+            using (_context = new DatabaseContext())
+            {
+                var item = _context.Documents.Where(x => x.Id == id).First();
+                item.DocumentRegistration = true;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeclineDocument(int id)
+        {
+            using (_context = new DatabaseContext())
+            {
+                var item = _context.Documents.Where(x => x.Id == id).First();
+                item.DocumentRegistration = false;
                 _context.SaveChanges();
             }
         }
@@ -68,7 +88,7 @@ namespace Project6.Models
         {
             using (_context = new DatabaseContext())
             {
-                return _context.Documents.Include("User").Where(x => x.ProgressStatus == 5).ToList();
+                return _context.Documents.Include("User").Where(x => x.ProgressStatus == 5 && x.DocumentRegistration==null).ToList();
             }
         }
     }

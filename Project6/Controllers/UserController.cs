@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Project6.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using static Project6.Models.User;
 
 namespace Project6.Controllers
 {
@@ -49,24 +53,57 @@ namespace Project6.Controllers
         {
             UserManager manager = new UserManager();
             User userToLogin = manager.ValidateLogin(user);
-            if (userToLogin != null)
-                if (userToLogin.UserRegistration == true)
-                {
-                    Session["Id"] = userToLogin.Id;
-                    Session["Username"] = userToLogin.Username;
-                    Session["Role"] = userToLogin.UserRole;
-                    return RedirectToAction("Index2", "MainMenu");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Your account is Unregistered");
-                    return View("Login");
-                }
-            else
+            if (userToLogin == null)
             {
                 ModelState.AddModelError("", "Invalid Username or Password");
                 return View("Login");
             }
+
+            if(userToLogin.UserRegistration==false)
+            {
+                ModelState.AddModelError("", "Your account is Unregistered");
+                return View("Login");
+            }
+            var claims = new List<Claim>(new[]
+            {
+
+                // adding following 2 claim just for supporting default antiforgery provider
+                new Claim(ClaimTypes.NameIdentifier, userToLogin.Username),
+                new Claim(
+                    "http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                    "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
+                new Claim(ClaimTypes.Name, userToLogin.Username)
+            });
+
+            claims.Add(new Claim(ClaimTypes.Role, userToLogin.UserRole.ToString()));
+
+            var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
+            HttpContext.GetOwinContext().Authentication.SignIn(
+                new AuthenticationProperties { IsPersistent = false }, identity);
+            Session["Id"] = userToLogin.Id;
+            Session["Username"] = userToLogin.Username;
+            Session["Role"] = userToLogin.UserRole;
+            return RedirectToAction("Index2", "MainMenu");
+
+            //if (userToLogin != null)
+            //    if (userToLogin.UserRegistration == true)
+            //    {
+            //        Session["Id"] = userToLogin.Id;
+            //        Session["Username"] = userToLogin.Username;
+            //        Session["Role"] = userToLogin.UserRole;
+            //        return RedirectToAction("Index2", "MainMenu");
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("", "Your account is Unregistered");
+            //        return View("Login");
+            //    }
+            //else
+            //{
+            //    ModelState.AddModelError("", "Invalid Username or Password");
+            //    return View("Login");
+            //}
         }
     }
 }

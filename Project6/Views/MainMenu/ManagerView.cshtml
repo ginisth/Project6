@@ -56,13 +56,13 @@
             @Html.DisplayNameFor(model => model.Document.Title)
         </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Document.Content)
+       <th >
+           From:
+       </th>    
 
         <th>
             @Html.DisplayNameFor(model => model.Document.SubmitDate)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in ViewBag.documents)
@@ -73,15 +73,14 @@
             </td>
 
             <td>
-                @item.Content
+                @item.User.Username
             </td>
 
             <td>
                 @item.SubmitDate
             </td>
             <td>
-                @Html.ActionLink("Accept", "AcceptUser", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure?');" })
+                @Html.ActionLink("View", "ViewDocument", new { id = item.Id })
             </td>
         </tr>
     }

@@ -7,26 +7,27 @@ using Project6.Models;
 
 namespace Project6.Controllers
 {
-    [Filter.AuthoriseUser]
+    //[Filter.AuthoriseUser]
+    [Authorize]
     public class MainMenuController : Controller
     {
         private Models.User.Role _role;
-
+        UserManager userManager = new UserManager();
+        DocumentManager documentManager = new DocumentManager();
 
         public ActionResult Index2()
         {
-            UserManager manager = new UserManager();
-            DocumentManager documentManager = new DocumentManager();
-            List<Document> documents;
             _role = (Models.User.Role)Session["Role"];
+            List<Document> documents;
             if (_role == Models.User.Role.Manager)
             {
-                documents = documentManager.ListForManager();
-                var unregisteredUsers = manager.UnregisteredUsers();
+                 documents = documentManager.ListForManager();
+                var unregisteredUsers = userManager.UnregisteredUsers();
                 
                 ViewBag.TotalUsers = unregisteredUsers;
                 ViewBag.Documents = documents;
-                return View("Experiment");
+
+                return View("ManagerView");
             }
             else if (_role == Models.User.Role.Analyst)
             {
@@ -42,28 +43,44 @@ namespace Project6.Controllers
                 documents = documentManager.ListForProgrammer();
                 return View("OtherRolesView", documents);
             }
-            else
+            else 
             {
-                return View("Index");
+                documents = documentManager.ListForTester();
+                return View("OtherRolesView", documents);
             }
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult AcceptUser(User user)
         {
-            UserManager manager = new UserManager();
-            manager.AcceptUser(user);
+            userManager.AcceptUser(user);
             return RedirectToAction("Index2");
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Delete(User user)
         {
-            UserManager manager = new UserManager();
-            manager.DeleteUser(user);
+            userManager.DeleteUser(user);
             return RedirectToAction("Index2");
 
+        }
+
+        [Authorize(Roles ="Manager")]
+        public ActionResult AcceptDocument(int id)
+        {
+            documentManager.AcceptDocument(id);
+            return RedirectToAction("Index2");
+        }
+
+        [Authorize(Roles = "Manager")]
+        public ActionResult DeclineDocument(int id)
+        {
+            documentManager.DeclineDocument(id);
+            return RedirectToAction("Index2");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Analyst")]
         public ActionResult CreateDocument([Bind(Include = "Title,Content")] Document document)
         {
             Document newDocument = new Document
@@ -73,10 +90,10 @@ namespace Project6.Controllers
                 UserId = (int)Session["Id"],
                 SubmitDate = DateTime.Now,
                 ProgressStatus = 2,
-                DocumentRegistration = false
+                DocumentRegistration = null
             };
-            DocumentManager manager = new DocumentManager();
-            manager.NewDocument(newDocument);
+            documentManager.NewDocument(newDocument);
+
             ViewBag.Message = "Document Created";
             return RedirectToAction("Index2");
 
@@ -84,8 +101,7 @@ namespace Project6.Controllers
 
         public ActionResult Edit(int id)
         {
-            DocumentManager manager = new DocumentManager();
-            Document item = manager.EditDocument(id);
+            Document item = documentManager.FindDocument(id);
             return View("Edit", item);
         }
 
@@ -93,9 +109,14 @@ namespace Project6.Controllers
         {
             document.UserId =(int) Session["Id"];
             document.Content =document.Content +"Created by:" + (string)Session["Username"] + "," + Session["Role"].ToString();
-            DocumentManager manager = new DocumentManager();
-            manager.EditDocument2(document);
+            documentManager.EditDocument2(document);
             return RedirectToAction("Index2");
+        }
+
+        public ActionResult ViewDocument(int id)
+        {
+            Document item = documentManager.FindDocument(id);
+            return View("ViewDocument", item);
         }
 
         public ActionResult Logout()
