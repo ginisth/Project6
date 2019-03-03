@@ -11,14 +11,21 @@ namespace Project6.Models
     public class Document
     {
         public int Id { get; set; }
+
+        [Required]
         public string Title { get; set; }
+
+        [Required]
         [AllowHtml]
         public string Content { get; set; }
+
         public int UserId { get; set; }
+
         public DateTime SubmitDate { get; set; }
 
         [Range(2,5)]
         public int ProgressStatus { get; set; }
+
         public bool? DocumentRegistration { get; set; }
 
         [ForeignKey("UserId")]

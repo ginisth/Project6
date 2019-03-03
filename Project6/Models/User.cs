@@ -12,12 +12,12 @@ namespace Project6.Models
 
         [Required]
         [StringLength(100)]
-        [MinLength(5,ErrorMessage ="The Username field should have at least 3 characters")]
+        [MinLength(5,ErrorMessage ="The Username field should have at least 5 characters")]
         public string Username { get; set; }
 
         [Required]
         [StringLength(100)]
-        [MinLength(5, ErrorMessage = "The Password field should have at least 3 characters")]
+        [MinLength(5, ErrorMessage = "The Password field should have at least 5 characters")]
         public string Password { get; set; }
 
         [Display(Name ="Role")]

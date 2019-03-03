@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201903022253394_DocumentRegistrationIsNowNullable.Designer.cs">
       <DependentUpon>201903022253394_DocumentRegistrationIsNowNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903030054357_DocumentFieldsRequired.cs" />
+    <Compile Include="Migrations\201903030054357_DocumentFieldsRequired.Designer.cs">
+      <DependentUpon>201903030054357_DocumentFieldsRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\Document.cs" />
@@ -2931,6 +2935,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903022253394_DocumentRegistrationIsNowNullable.resx">
       <DependentUpon>201903022253394_DocumentRegistrationIsNowNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903030054357_DocumentFieldsRequired.resx">
+      <DependentUpon>201903030054357_DocumentFieldsRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
