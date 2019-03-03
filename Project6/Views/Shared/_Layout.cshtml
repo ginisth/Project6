@@ -9,12 +9,12 @@
     @Scripts.Render("~/bundles/ckeditor")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        @Html.ActionLink("Project 6", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup" @*id="navbarColor01*@">
             <div class="navbar-nav">
                 @if (HttpContext.Current.Session["Username"] == null)
                 {
@@ -22,14 +22,16 @@
                 }
                 else
                 {
-                    <a class="nav-link">@Html.ActionLink("Home", "Index2", "MainMenu", new { area = "" }, new { @class = "navbar-brand" })</a>
+                    <a class="nav-link">@Html.ActionLink("Menu", "Index2", "MainMenu", new { area = "" }, new { @class = "navbar-brand" })</a>
                 }
-                <a class="nav-link">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })</a>
-                <a class="nav-link">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "navbar-brand" })</a>
+            </div>
+
+            <div class="navbar-nav ml-auto">
                 @if (HttpContext.Current.Session["Username"] == null)
                 {
                     <a class="nav-link">@Html.ActionLink("Register", "Register", "User", new { area = "" }, new { @class = "navbar-brand" })</a>
                 }
+
                 @if (HttpContext.Current.Session["Username"] == null)
                 {
                     <a class="nav-link">@Html.ActionLink("Login", "Login", "User", new { area = "" }, new { @class = "navbar-brand" })</a>

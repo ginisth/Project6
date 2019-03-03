@@ -31,10 +31,8 @@
         <p>
             @if (Model.ProgressStatus == 5)
             {
-                <hr />
-                @Html.ActionLink("Accept", "AcceptDocument", new { id = Model.Id }) <hr />
-                @Html.ActionLink("Decline", "DeclineDocument", new { id = Model.Id })
-
+                @Html.ActionLink("Accept", "AcceptDocument", new { id = Model.Id }, new { @class = "btn btn-primary", @role = "button" })
+                @Html.ActionLink("Decline", "DeclineDocument", new { id = Model.Id }, new { @class = "btn btn-primary", @role = "button" })
             }
         </p>
     }
