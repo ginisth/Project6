@@ -7,6 +7,7 @@ using Project6.Models;
 
 namespace Project6.Controllers
 {
+    // Preventing access to users with no role.
     [Filter.AuthoriseUser]
     public class MainMenuController : Controller
     {
@@ -124,6 +125,7 @@ namespace Project6.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // Taking place only after un-authorized actions
         public ActionResult ForcedLogout()
         {
             Session.Clear();

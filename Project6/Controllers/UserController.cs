@@ -27,6 +27,7 @@ namespace Project6.Controllers
             return View();
         }
 
+        // Taking place only after un-authorized actions
         public ActionResult LoginAfterForcedLogout()
         {
             ModelState.AddModelError("", "You don't have the privileges for this action.Login with a different account.");

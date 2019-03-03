@@ -18,6 +18,10 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
+        @* Giving access only to associated users.
+            e.g. Role Programmer=3(enum attribute) can access only the Documents with ProgressStatus=3.
+            *@
+
         @if (Model.ProgressStatus == (int)Session["Role"])
         {
 
