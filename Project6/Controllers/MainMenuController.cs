@@ -7,8 +7,7 @@ using Project6.Models;
 
 namespace Project6.Controllers
 {
-    //[Filter.AuthoriseUser]
-    [Authorize]
+    [Filter.AuthoriseUser]
     public class MainMenuController : Controller
     {
         private Models.User.Role _role;
@@ -123,6 +122,12 @@ namespace Project6.Controllers
         {
             Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ForcedLogout()
+        {
+            Session.Clear();
+            return RedirectToAction("LoginAfterForcedLogout", "User");
         }
 
     }

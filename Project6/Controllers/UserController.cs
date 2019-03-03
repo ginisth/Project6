@@ -27,6 +27,14 @@ namespace Project6.Controllers
             return View();
         }
 
+        public ActionResult LoginAfterForcedLogout()
+        {
+            ModelState.AddModelError("", "You don't have the privileges for this action.Login with a different account.");
+            return View("Login");
+        }
+
+
+
         [HttpPost]
         public ActionResult Create(User user)
         {
@@ -85,25 +93,6 @@ namespace Project6.Controllers
             Session["Username"] = userToLogin.Username;
             Session["Role"] = userToLogin.UserRole;
             return RedirectToAction("Index2", "MainMenu");
-
-            //if (userToLogin != null)
-            //    if (userToLogin.UserRegistration == true)
-            //    {
-            //        Session["Id"] = userToLogin.Id;
-            //        Session["Username"] = userToLogin.Username;
-            //        Session["Role"] = userToLogin.UserRole;
-            //        return RedirectToAction("Index2", "MainMenu");
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "Your account is Unregistered");
-            //        return View("Login");
-            //    }
-            //else
-            //{
-            //    ModelState.AddModelError("", "Invalid Username or Password");
-            //    return View("Login");
-            //}
         }
     }
 }
