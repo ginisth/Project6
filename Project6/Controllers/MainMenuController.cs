@@ -62,7 +62,6 @@ namespace Project6.Controllers
         {
             userManager.DeleteUser(user);
             return RedirectToAction("Index2");
-
         }
 
         [Authorize(Roles ="Manager")]
@@ -96,7 +95,6 @@ namespace Project6.Controllers
 
             ViewBag.Message = "Document Created";
             return RedirectToAction("Index2");
-
         }
 
         public ActionResult Edit(int id)
@@ -131,6 +129,5 @@ namespace Project6.Controllers
             Session.Clear();
             return RedirectToAction("LoginAfterForcedLogout", "User");
         }
-
     }
 }

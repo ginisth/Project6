@@ -28,7 +28,6 @@ namespace Project6.Models
 
         public ICollection<Document> Documents { get; set; }
 
-
         public enum Role
         {
             [Display(Name ="Analyst")]
@@ -42,7 +41,5 @@ namespace Project6.Models
             [Display(Name ="Manager")]
             Manager = 5
         }
-
-
     }
 }

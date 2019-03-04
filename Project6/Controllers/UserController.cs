@@ -15,10 +15,8 @@ namespace Project6.Controllers
     public class UserController : Controller
     {
 
-
         public ActionResult Register()
         {
-
             return View();
         }
 
@@ -57,7 +55,7 @@ namespace Project6.Controllers
         }
 
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public ActionResult ValidateLogin([Bind(Include = "Username,Password")] User user)
         {
             UserManager manager = new UserManager();
@@ -73,6 +71,7 @@ namespace Project6.Controllers
                 ModelState.AddModelError("", "Your account is Unregistered");
                 return View("Login");
             }
+
             var claims = new List<Claim>(new[]
             {
 
