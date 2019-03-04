@@ -38,8 +38,8 @@
                 @item.UserRegistration
             </td>
             <td>
-                @Html.ActionLink("Accept", "AcceptUser", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure?');" })
+                @Html.ActionLink("Accept", "AcceptUser", new { id = item.Id }, new { @class = "btn btn-success", @role = "button" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", @role = "button" , @onclick = "return confirm('Are you sure?');" })
             </td>
         </tr>
     }
@@ -79,7 +79,7 @@
                 @item.SubmitDate
             </td>
             <td>
-                @Html.ActionLink("View", "ViewDocument", new { id = item.Id })
+                @Html.ActionLink("View", "ViewDocument", new { id = item.Id }, new { @class = "btn btn-info", @role = "button" })
             </td>
         </tr>
     }

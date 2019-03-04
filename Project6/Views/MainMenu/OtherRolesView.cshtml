@@ -40,8 +40,8 @@
             @Html.DisplayFor(modelItem => item.SubmitDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("View","ViewDocument", new { id = item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success", @role = "button" }) 
+            @Html.ActionLink("View","ViewDocument", new { id = item.Id }, new { @class = "btn btn-info", @role = "button" })
 
         </td>
     </tr>

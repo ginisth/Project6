@@ -7,7 +7,7 @@
 
 
 <div>
-    <h4>Document</h4>
+    <h4>Document  @Model.Id</h4>
     <hr />
     @if (Model.ProgressStatus == (int)Session["Role"])
     {
@@ -31,8 +31,8 @@
         <p>
             @if (Model.ProgressStatus == 5)
             {
-                @Html.ActionLink("Accept", "AcceptDocument", new { id = Model.Id }, new { @class = "btn btn-primary", @role = "button" })
-                @Html.ActionLink("Decline", "DeclineDocument", new { id = Model.Id }, new { @class = "btn btn-primary", @role = "button" })
+                @Html.ActionLink("Accept", "AcceptDocument", new { id = Model.Id }, new { @class = "btn btn-success", @role = "button" })
+                @Html.ActionLink("Decline", "DeclineDocument", new { id = Model.Id }, new { @class = "btn btn-danger", @role = "button" ,@onclick = "return confirm('Are you sure?');" })
             }
         </p>
     }
