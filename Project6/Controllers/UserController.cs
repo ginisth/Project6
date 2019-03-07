@@ -55,7 +55,7 @@ namespace Project6.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult ValidateLogin([Bind(Include = "Username,Password")] User user)
         {
             UserManager manager = new UserManager();
