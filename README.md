@@ -15,9 +15,15 @@ The responsibilities of each role are:
 3. The Tester role can view certain data that have been marked from the Programmer as “To Test” [10 marks]
 4. The Analyst role provides to the Architect certain data e.g. a document with the analysis of the system [10 marks]
 5. The Architect role provides to the Programmer certain data, e.g. a document with the analysis and architecture of the system [10 marks]
+
+
+
 Simple Case Scenario
+
 The Manager approves the registration of the users via a specific UI.
 The Analyst prepares an analysis for the Architect. The Analyst marks his work as completed and the Architect can see this analysis, e.g. a simple document.
 The Architect designs the system’s structure and marks his work as completed.
 The Programmer implements the system and marks his work as completed.
 The Tester views the implemented system and tests it and marks the testing stage as completed.
+
+
